@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DS TÃ¼rkiye Teknik NFC Tool</title>
+    <title>DS Türkiye Teknik NFC Tool</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
     <style>
         body {
@@ -54,7 +54,7 @@
             border-radius: 10px;
         }
         .button-copy {
-            background-color: #0066cc; /* Daha aÃ§Ä±k mavi ton */
+            background-color: #0066cc; /* Daha açık mavi ton */
             color: white;
         }
         .button-copy:hover {
@@ -68,7 +68,7 @@
             background-color: #b3b3b3;
         }
         .button-video {
-            background-color: #f0f0f0; /* Daha aÃ§Ä±k gri ton */
+            background-color: #f0f0f0; /* Daha açık gri ton */
             color: black;
         }
         .button-video:hover {
@@ -87,8 +87,8 @@
             display: none;
         }
         .generated-link-text {
-            color: #0066cc; /* AÃ§Ä±k mavi renk */
-            font-size: 12px; /* KÃ¼Ã§Ã¼k font boyutu */
+            color: #0066cc; /* Açık mavi renk */
+            font-size: 12px; /* Küçük font boyutu */
             margin-bottom: 5px;
             text-align: left;
         }
@@ -107,28 +107,28 @@
 
     <div class="container">
         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPV2nhKklUe467K5q0cPXKx24RXmIqyYLsjg&s" alt="Logo" class="logo">
-        <h1>DS TÃ¼rkiye Teknik NFC Tool</h1>
-        <label for="serialNumber">Seri NumarasÄ±</label>
-        <input type="text" id="serialNumber" placeholder="Ã–rnek: 1061080" oninput="checkLength()">
+        <h1>DS Türkiye Teknik NFC Tool</h1>
+        <label for="serialNumber">Seri Numarası</label>
+        <input type="text" id="serialNumber" placeholder="Örnek: 1061080" oninput="checkLength()">
         
         <label for="deviceModel">Cihaz Modeli</label>
-        <input type="text" id="deviceModel" placeholder="Ã–rnek: Orthophos XG3D" oninput="checkLength()">
+        <input type="text" id="deviceModel" placeholder="Örnek: Orthophos XG3D" oninput="checkLength()">
         
-        <div class="alert" id="alert">LÃ¼tfen seri numarasÄ± ve cihaz modelini girin!</div>
+        <div class="alert" id="alert">Lütfen seri numarası ve cihaz modelini girin!</div>
         <div class="byte-alert" id="byteAlert">Link 135 bayttan fazla olamaz!</div>
         
-        <div class="byte-counter" id="byteCounter">Kalan byte sayÄ±sÄ±: 135</div>
+        <div class="byte-counter" id="byteCounter">Kalan byte sayısı: 135</div>
         
-        <button class="button button-copy" onclick="generateLink()">Link OluÅŸtur</button>
+        <button class="button button-copy" onclick="generateLink()">Link Oluştur</button>
         
         <div class="link-container" id="linkContainer">
-            <p class="generated-link-text">OluÅŸturulan Link</p>
+            <p class="generated-link-text">Oluşturulan Link</p>
             <input type="url" id="generatedLink" readonly>
             <button class="button button-copy" onclick="copyLink()">Linki Kopyala</button>
-            <div class="copy-alert" id="copyAlert">KopyalandÄ±!</div>
+            <div class="copy-alert" id="copyAlert">Kopyalandı!</div>
         </div>
 
-        <button class="button button-app" onclick="window.location.href='https://apps.apple.com/tr/app/nfc-tools/id1252962749?l=tr'">NFC Mobil UygulamasÄ±</button>
+        <button class="button button-app" onclick="window.location.href='https://apps.apple.com/tr/app/nfc-tools/id1252962749?l=tr'">NFC Mobil Uygulaması</button>
         <button class="button button-video" onclick="window.location.href='https://www.google.com'">NFC Video Rehberi</button>
     </div>
 
@@ -137,12 +137,12 @@
             const serialNumber = document.getElementById("serialNumber").value.trim();
             const deviceModel = document.getElementById("deviceModel").value.trim();
             const baseLink = "https://wa.me/908507553737?text=Merhaba+";
-            const additionalText = "+cihazÄ±+iÃ§in+teknik+destek+talep+ediyorum";
+            const additionalText = "+cihazı+için+teknik+destek+talep+ediyorum";
             const encodedSerialNumber = encodeURIComponent(serialNumber).replace(/%20/g, "+");
             const encodedDeviceModel = encodeURIComponent(deviceModel).replace(/%20/g, "+");
 
-            // Yeni link formatÄ±
-            const fullLink = baseLink + encodedSerialNumber + "+seri+numaralÄ±+" + encodedDeviceModel + additionalText;
+            // Yeni link formatı
+            const fullLink = baseLink + encodedSerialNumber + "+seri+numaralı+" + encodedDeviceModel + additionalText;
             const byteLength = new TextEncoder().encode(fullLink).length;
             const maxByteLength = 135;
             const remainingBytes = maxByteLength - byteLength;
@@ -153,7 +153,7 @@
                 document.getElementById("byteAlert").style.display = "none";
             }
 
-            document.getElementById("byteCounter").textContent = `Kalan byte sayÄ±sÄ±: ${remainingBytes}`;
+            document.getElementById("byteCounter").textContent = `Kalan byte sayısı: ${remainingBytes}`;
         }
 
         function generateLink() {
@@ -167,12 +167,12 @@
             }
 
             const baseLink = "https://wa.me/908507553737?text=Merhaba+";
-            const additionalText = "+cihazÄ±+iÃ§in+teknik+destek+talep+ediyorum";
+            const additionalText = "+cihazı+için+teknik+destek+talep+ediyorum";
             const encodedSerialNumber = encodeURIComponent(serialNumber).replace(/%20/g, "+");
             const encodedDeviceModel = encodeURIComponent(deviceModel).replace(/%20/g, "+");
 
-            // Yeni link formatÄ±
-            const fullLink = baseLink + encodedSerialNumber + "+seri+numaralÄ±+" + encodedDeviceModel + additionalText;
+            // Yeni link formatı
+            const fullLink = baseLink + encodedSerialNumber + "+seri+numaralı+" + encodedDeviceModel + additionalText;
             const byteLength = new TextEncoder().encode(fullLink).length;
 
             if (byteLength > 135) {
