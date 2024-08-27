@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DS TÃ¼rkiye Teknik NFC Tool</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #eeeeee;
+            color: #333f4c;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            max-width: 350px;
+            width: 100%;
+            padding: 20px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .logo {
+            width: 100px;
+        }
+        h1 {
+            color: #0043ce;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 15px;
+            text-align: left;
+        }
+        input[type="text"], input[type="url"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            box-sizing: border-box;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .button {
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+            border-radius: 10px;
+        }
+        .button-copy {
+            background-color: #0066cc; /* Daha aÃ§Ä±k mavi ton */
+            color: white;
+        }
+        .button-copy:hover {
+            background-color: #005bb5;
+        }
+        .button-app {
+            background-color: #d3d3d3; /* Gri ton */
+            color: black;
+        }
+        .button-app:hover {
+            background-color: #b3b3b3;
+        }
+        .button-video {
+            background-color: #f0f0f0; /* Daha aÃ§Ä±k gri ton */
+            color: black;
+        }
+        .button-video:hover {
+            background-color: #e0e0e0;
+        }
+        .link-container {
+            margin-top: 20px;
+            display: none;
+        }
+        .alert {
+            color: red;
+            display: none;
+        }
+        .copy-alert {
+            color: green;
+            display: none;
+        }
+        .generated-link-text {
+            color: #0066cc; /* AÃ§Ä±k mavi renk */
+            font-size: 12px; /* KÃ¼Ã§Ã¼k font boyutu */
+            margin-bottom: 5px;
+            text-align: left;
+        }
+        .byte-alert {
+            color: red;
+            display: none;
+        }
+        .byte-counter {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #333f4c;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPV2nhKklUe467K5q0cPXKx24RXmIqyYLsjg&s" alt="Logo" class="logo">
+        <h1>DS TÃ¼rkiye Teknik NFC Tool</h1>
+        <label for="serialNumber">Seri NumarasÄ±</label>
+        <input type="text" id="serialNumber" placeholder="Ã–rnek: 1061080" oninput="checkLength()">
+        
+        <label for="deviceModel">Cihaz Modeli</label>
+        <input type="text" id="deviceModel" placeholder="Ã–rnek: Orthophos XG3D" oninput="checkLength()">
+        
+        <div class="alert" id="alert">LÃ¼tfen seri numarasÄ± ve cihaz modelini girin!</div>
+        <div class="byte-alert" id="byteAlert">Link 135 bayttan fazla olamaz!</div>
+        
+        <div class="byte-counter" id="byteCounter">Kalan byte sayÄ±sÄ±: 135</div>
+        
+        <button class="button button-copy" onclick="generateLink()">Link OluÅŸtur</button>
+        
+        <div class="link-container" id="linkContainer">
+            <p class="generated-link-text">OluÅŸturulan Link</p>
+            <input type="url" id="generatedLink" readonly>
+            <button class="button button-copy" onclick="copyLink()">Linki Kopyala</button>
+            <div class="copy-alert" id="copyAlert">KopyalandÄ±!</div>
+        </div>
+
+        <button class="button button-app" onclick="window.location.href='https://apps.apple.com/tr/app/nfc-tools/id1252962749?l=tr'">NFC Mobil UygulamasÄ±</button>
+        <button class="button button-video" onclick="window.location.href='https://www.google.com'">NFC Video Rehberi</button>
+    </div>
+
+    <script>
+        function checkLength() {
+            const serialNumber = document.getElementById("serialNumber").value.trim();
+            const deviceModel = document.getElementById("deviceModel").value.trim();
+            const baseLink = "https://wa.me/908507553737?text=Merhaba+";
+            const additionalText = "+cihazÄ±+iÃ§in+teknik+destek+talep+ediyorum";
+            const encodedSerialNumber = encodeURIComponent(serialNumber).replace(/%20/g, "+");
+            const encodedDeviceModel = encodeURIComponent(deviceModel).replace(/%20/g, "+");
+
+            // Yeni link formatÄ±
+            const fullLink = baseLink + encodedSerialNumber + "+seri+numaralÄ±+" + encodedDeviceModel + additionalText;
+            const byteLength = new TextEncoder().encode(fullLink).length;
+            const maxByteLength = 135;
+            const remainingBytes = maxByteLength - byteLength;
+
+            if (byteLength > maxByteLength) {
+                document.getElementById("byteAlert").style.display = "block";
+            } else {
+                document.getElementById("byteAlert").style.display = "none";
+            }
+
+            document.getElementById("byteCounter").textContent = `Kalan byte sayÄ±sÄ±: ${remainingBytes}`;
+        }
+
+        function generateLink() {
+            const serialNumber = document.getElementById("serialNumber").value.trim();
+            const deviceModel = document.getElementById("deviceModel").value.trim();
+
+            if (!serialNumber || !deviceModel) {
+                document.getElementById("alert").style.display = "block";
+                document.getElementById("linkContainer").style.display = "none";
+                return;
+            }
+
+            const baseLink = "https://wa.me/908507553737?text=Merhaba+";
+            const additionalText = "+cihazÄ±+iÃ§in+teknik+destek+talep+ediyorum";
+            const encodedSerialNumber = encodeURIComponent(serialNumber).replace(/%20/g, "+");
+            const encodedDeviceModel = encodeURIComponent(deviceModel).replace(/%20/g, "+");
+
+            // Yeni link formatÄ±
+            const fullLink = baseLink + encodedSerialNumber + "+seri+numaralÄ±+" + encodedDeviceModel + additionalText;
+            const byteLength = new TextEncoder().encode(fullLink).length;
+
+            if (byteLength > 135) {
+                document.getElementById("byteAlert").style.display = "block";
+                return;
+            } else {
+                document.getElementById("byteAlert").style.display = "none";
+            }
+
+            document.getElementById("alert").style.display = "none";
+            document.getElementById("generatedLink").value = fullLink;
+            document.getElementById("linkContainer").style.display = "block";
+        }
+
+        function copyLink() {
+            const linkText = document.getElementById("generatedLink");
+            linkText.select();
+            linkText.setSelectionRange(0, 99999); /* For mobile devices */
+            navigator.clipboard.writeText(linkText.value).then(() => {
+                document.getElementById("copyAlert").style.display = "block";
+                setTimeout(() => {
+                    document.getElementById("copyAlert").style.display = "none";
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
