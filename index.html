@@ -54,21 +54,21 @@
             border-radius: 10px;
         }
         .button-copy {
-            background-color: #0066cc; /* Daha açık mavi ton */
+            background-color: #0066cc;
             color: white;
         }
         .button-copy:hover {
             background-color: #005bb5;
         }
         .button-app {
-            background-color: #d3d3d3; /* Gri ton */
+            background-color: #d3d3d3;
             color: black;
         }
         .button-app:hover {
             background-color: #b3b3b3;
         }
         .button-video {
-            background-color: #f0f0f0; /* Daha açık gri ton */
+            background-color: #f0f0f0;
             color: black;
         }
         .button-video:hover {
@@ -87,8 +87,8 @@
             display: none;
         }
         .generated-link-text {
-            color: #0066cc; /* Açık mavi renk */
-            font-size: 12px; /* Küçük font boyutu */
+            color: #0066cc;
+            font-size: 12px;
             margin-bottom: 5px;
             text-align: left;
         }
@@ -141,7 +141,7 @@
             const encodedSerialNumber = encodeURIComponent(serialNumber).replace(/%20/g, "+");
             const encodedDeviceModel = encodeURIComponent(deviceModel).replace(/%20/g, "+");
 
-            // Yeni link formatı
+            
             const fullLink = baseLink + encodedSerialNumber + "+seri+numaralı+" + encodedDeviceModel + additionalText;
             const byteLength = new TextEncoder().encode(fullLink).length;
             const maxByteLength = 135;
@@ -171,7 +171,7 @@
             const encodedSerialNumber = encodeURIComponent(serialNumber).replace(/%20/g, "+");
             const encodedDeviceModel = encodeURIComponent(deviceModel).replace(/%20/g, "+");
 
-            // Yeni link formatı
+        
             const fullLink = baseLink + encodedSerialNumber + "+seri+numaralı+" + encodedDeviceModel + additionalText;
             const byteLength = new TextEncoder().encode(fullLink).length;
 
